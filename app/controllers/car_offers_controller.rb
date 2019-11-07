@@ -1,0 +1,2 @@
+class CarOffersController < ApplicationController
+end
