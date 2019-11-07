@@ -2,13 +2,11 @@ class CarOffersController < ApplicationController
   before_action :set_car_offer, only: :show
 
   def index
-    # TODO: Include photos
     car_offers = CarOffer.all
     render json: car_offers
   end
 
   def show
-    # TODO: Include photo
     render json: @car_offer
   end
 
