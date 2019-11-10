@@ -4,23 +4,22 @@ class Api::V1::CarOffersController < ApplicationController
   def index
     # TODO: Handle pagination and searching
     car_offers = CarOffer.all
-    render json: car_offers
+    json_response(car_offers)
   end
 
   def show
-    render json: @car_offer
+    json_response(@car_offer)
   end
 
   def create
     car_offer = CarOffer.new(car_offer_params)
-    car_offer.photo.attach(
-      io: car_offer_photo_path,
-      filename: car_offer_photo_name
-    )
+    if params[:photo].present?
+      car_offer.photo.attach(io: car_offer_photo_path, filename: car_offer_photo_name)
+    end
     if car_offer.save!
-      render json: car_offer, status: :created
+      json_response(car_offer)
     else
-      render json: car_offer.errors, status: :unprocessable_entity
+      json_response(car_offer.errors, status: :unprocessable_entity)
     end
   end
 
