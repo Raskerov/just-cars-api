@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'CarOffers API', type: :request do
-  let!(:car_offers) { create_list(:car_offer, 10) }
+  let!(:car_offers) { create_list(:car_offer, 15) }
   let(:car_offer_id) { car_offers.first.id }
 
   # Test suite for GET /car_offers
@@ -10,7 +10,8 @@ RSpec.describe 'CarOffers API', type: :request do
 
     it 'returns car_offers' do
       expect(json).not_to be_empty
-      expect(json.size).to eq(10)
+      expect(json['objects'].size).to eq(10)
+      expect(json).to include('meta')
     end
 
     it 'returns status code 200' do

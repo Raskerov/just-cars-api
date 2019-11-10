@@ -2,9 +2,9 @@ class Api::V1::CarOffersController < ApplicationController
   before_action :set_car_offer, only: :show
 
   def index
-    # TODO: Handle pagination and searching
-    car_offers = CarOffer.all
-    json_response(car_offers)
+    # TODO: Handle filtering
+    objects_to_display = CarOffer.page(params[:page] ? params[:page].to_i : 1)
+    json_response(objects: objects_to_display, meta: pagination_meta(objects_to_display))
   end
 
   def show
@@ -41,5 +41,13 @@ class Api::V1::CarOffersController < ApplicationController
 
   def car_offer_photo_name
     File.basename(URI.parse(params[:photo]).path)
+  end
+
+  def pagination_meta(object)
+    { current_page: object.current_page,
+      next_page: object.next_page,
+      prev_page: object.prev_page,
+      total_pages: object.total_pages,
+      total_count: object.total_count }
   end
 end
