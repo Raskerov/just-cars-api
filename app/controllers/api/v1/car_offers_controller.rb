@@ -1,4 +1,4 @@
-class CarOffersController < ApplicationController
+class Api::V1::CarOffersController < ApplicationController
   before_action :set_car_offer, only: :show
 
   def index
@@ -17,8 +17,12 @@ class CarOffersController < ApplicationController
       io: car_offer_photo_path,
       filename: car_offer_photo_name
     )
-    car_offer.save!
-    render json: car_offer
+    binding.pry
+    if car_offer.save!
+      render json: car_offer, status: :created
+    else
+      render json: car_offer.errors, status: :unprocessable_entity
+    end
   end
 
   private
