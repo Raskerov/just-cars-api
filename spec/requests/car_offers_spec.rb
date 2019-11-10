@@ -6,16 +6,29 @@ RSpec.describe 'CarOffers API', type: :request do
 
   # Test suite for GET /car_offers
   describe 'GET /api/v1/car_offers' do
-    before { get '/api/v1/car_offers' }
+    context 'without specific params' do
+      before { get '/api/v1/car_offers' }
 
-    it 'returns car_offers' do
-      expect(json).not_to be_empty
-      expect(json['objects'].size).to eq(10)
-      expect(json).to include('meta')
+      it 'returns car_offers' do
+        expect(json).not_to be_empty
+        expect(json['objects'].size).to eq(10)
+        expect(json).to include('meta')
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
-
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
+    context 'get second page' do
+      before { get '/api/v1/car_offers?page=2' }
+      it 'returns car_offers' do
+        expect(json).not_to be_empty
+        expect(json['objects'].size).to eq(5)
+        expect(json).to include('meta')
+      end
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
   end
 
