@@ -17,7 +17,6 @@ class Api::V1::CarOffersController < ApplicationController
       io: car_offer_photo_path,
       filename: car_offer_photo_name
     )
-    binding.pry
     if car_offer.save!
       render json: car_offer, status: :created
     else
