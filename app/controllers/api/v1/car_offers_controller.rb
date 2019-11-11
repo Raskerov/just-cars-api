@@ -14,7 +14,7 @@ class Api::V1::CarOffersController < ApplicationController
   def create
     car_offer = CarOffer.new(car_offer_params)
     if params[:photo].present?
-      car_offer.photo.attach(io: car_offer_photo_path, filename: car_offer_photo_name)
+      car_offer.photo.attach(io: offer_photo_path, filename: offer_photo_name)
     end
     if car_offer.save!
       json_response(car_offer)
@@ -33,13 +33,13 @@ class Api::V1::CarOffersController < ApplicationController
     params.permit(:title, :description, :price, :photo)
   end
 
-  def car_offer_photo_path
+  def offer_photo_path
     uri = URI.parse(params[:photo])
     file = Net::HTTP.get_response(uri).body
     StringIO.new(file)
   end
 
-  def car_offer_photo_name
+  def offer_photo_name
     File.basename(URI.parse(params[:photo]).path)
   end
 
