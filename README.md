@@ -1,24 +1,26 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple API only app.
 
-Things you may want to cover:
+This api servers car offers that has:
+* Title
+* Description
+* Price
+* Photo
 
 * Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
+  - 2.6.3
 
 * How to run the test suite
+  - bundle exec rspec
 
-* Services (job queues, cache servers, search engines, etc.)
+* How to run locally
+  - git clone
+  - bundle install
+  - create and seed database
+  - start rails server
 
-* Deployment instructions
-
-* ...
+  Everything is served under endpoints:
+  - GET /api/v1/car_offers
+  - POST /api/v1/car_offers
+  - GET /api/v1/car_offers/#{id}
